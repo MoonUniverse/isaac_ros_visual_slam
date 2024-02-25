@@ -34,6 +34,7 @@
 #include "sensor_msgs/msg/imu.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
+#include <px4_msgs/msg/vehicle_odometry.hpp>
 
 using ImageType = sensor_msgs::msg::Image;
 using CameraInfoType = sensor_msgs::msg::CameraInfo;

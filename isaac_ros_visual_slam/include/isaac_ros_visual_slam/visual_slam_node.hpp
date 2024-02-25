@@ -169,6 +169,7 @@ private:
   const rclcpp::Publisher<OdometryType>::SharedPtr tracking_odometry_pub_;
   const rclcpp::Publisher<PathType>::SharedPtr tracking_vo_path_pub_;
   const rclcpp::Publisher<PathType>::SharedPtr tracking_slam_path_pub_;
+  const rclcpp::Publisher<px4_msgs::msg::VehicleOdometry>::SharedPtr vehicle_vio_pub_;
 
   // Visualization for odometry
   const rclcpp::Publisher<PointCloud2Type>::SharedPtr vis_observations_pub_;

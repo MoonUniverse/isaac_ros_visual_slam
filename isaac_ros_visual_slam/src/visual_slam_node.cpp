@@ -108,6 +108,8 @@ VisualSlamNode::VisualSlamNode(rclcpp::NodeOptions options)
     create_publisher<PathType>("visual_slam/tracking/vo_path", rclcpp::QoS(100))),
   tracking_slam_path_pub_(
     create_publisher<PathType>("visual_slam/tracking/slam_path", rclcpp::QoS(100))),
+  vehicle_vio_pub_(
+    create_publisher<px4_msgs::msg::VehicleOdometry>("/fmu/in/vehicle_visual_odometry", rclcpp::QoS(100))),  
 
   // Visualizators for odometry
   vis_observations_pub_(

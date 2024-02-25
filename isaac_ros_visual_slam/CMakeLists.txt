@@ -31,6 +31,7 @@ ament_auto_find_build_dependencies()
 # Dependencies
 find_package(Eigen3 REQUIRED)
 find_package(Threads REQUIRED)
+find_package(px4_msgs REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 
 # cuVSLAM (resolve path from ament_index)

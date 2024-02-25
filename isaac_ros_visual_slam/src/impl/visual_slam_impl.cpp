@@ -891,6 +891,38 @@ void VisualSlamNode::VisualSlamImpl::TrackAndGetPose(
     PoseType slam_pose;
     tf2::toMsg(map_pose_base_link, slam_pose);
 
+    if (1) {
+      px4_msgs::msg::VehicleOdometry msg{};
+      const auto &q = vo_pose.orientation;
+      tf2::Quaternion quaternion(q.x, q.y, q.z, q.w);
+      tf2::Matrix3x3 m(quaternion);
+      double roll, pitch, yaw;
+      m.getRPY(roll, pitch, yaw);
+      pitch = -pitch;
+      yaw = -yaw;
+      tf2::Quaternion quat;
+      quat.setRPY(roll, pitch, yaw);
+      msg.timestamp = ((int64_t)header_odom.stamp.sec) * 1000000 + header_odom.stamp.nanosec / 1000;
+      msg.timestamp_sample = msg.timestamp;
+      msg.pose_frame = 1;
+      msg.position[0] = vo_pose.position.x;
+      msg.position[1] = -vo_pose.position.y;
+      msg.position[2] = -vo_pose.position.z;
+      msg.q[0] = quat.w();
+      msg.q[1] = quat.x();
+      msg.q[2] = quat.y();
+      msg.q[3] = quat.z();
+      msg.velocity_frame = 1;
+      msg.velocity[0] = 0;
+      msg.velocity[1] = 0;
+      msg.velocity[2] = 0;
+      msg.angular_velocity[0] = 0;
+      msg.angular_velocity[1] = 0;
+      msg.angular_velocity[2] = 0;
+      node.vehicle_vio_pub_->publish(msg);
+    }
+
+
     if (HasSubscribers(node.tracking_vo_pose_pub_)) {
       // Tracking_vo_pose_pub_
       auto pose_only = std::make_unique<PoseStampedType>();
